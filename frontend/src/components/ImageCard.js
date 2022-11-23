@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import {Container} from 'react-bootstrap';
 
-const ImageCard = ({image}) => {
+const ImageCard = ({image, deleteImage}) => {
   return (
     <Container className = "mt-4">
       <Card style={{ width: '18rem' }}>
@@ -12,7 +12,8 @@ const ImageCard = ({image}) => {
           <Card.Text>
             {image.description || image.alt_description}
           </Card.Text>
-          <Button variant="danger">Delete</Button>
+          <Button variant="danger" 
+          onClick = {() => deleteImage(image.id)}>Delete</Button>
         </Card.Body>
       </Card>
     </Container>

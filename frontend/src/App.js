@@ -11,7 +11,6 @@ function App() {
   const [word, setWord] = useState("");
   const [images, setImages] = useState([]);
   const handleSearchSubmit = (e) => {
-  let len = images.length
     e.preventDefault();
     console.log(word);
     fetch(
@@ -27,6 +26,11 @@ function App() {
       });
     setWord("");
   };
+
+  const handleDeleteImage = (id) => {
+    setImages(images.filter((image) => image.id !== id));
+  };
+
   return (
     <div>
       <Header title="Images Gallery"></Header>
@@ -39,7 +43,7 @@ function App() {
         <Row xs = {1} md={2} lg={3}>
           {images.map((image, i) => (
           <Col key = {i} className = "pb-3">
-            <ImageCard key = {i} image = {image}/>
+            <ImageCard key = {i} image = {image} deleteImage = {handleDeleteImage}/>
           </Col>))}
         </Row>
       </Container>
