@@ -4,7 +4,8 @@ import Header from "./components/Header";
 import Search from "./components/Search";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ImageCard from "./components/ImageCard";
-import {Container, Row, Col} from 'react-bootstrap';
+import { Container, Row, Col } from "react-bootstrap";
+import Welcome from "./components/Welcome";
 
 const UNSPLASH_KEY = process.env.REACT_APP_UNSPLASH_KEY;
 function App() {
@@ -18,7 +19,7 @@ function App() {
     )
       .then((res) => res.json())
       .then((data) => {
-        setImages([{...data, title: word}, ...images])
+        setImages([{ ...data, title: word }, ...images]);
         console.log(images);
       })
       .catch((err) => {
@@ -34,20 +35,24 @@ function App() {
   return (
     <div>
       <Header title="Images Gallery"></Header>
-      <Search
-        word={word}
-        setWord={setWord}
-        handleSubmit={handleSearchSubmit}
-      ></Search>
-      <Container>
-        <Row xs = {1} md={2} lg={3}>
-          {images.map((image, i) => (
-          <Col key = {i} className = "pb-3">
-            <ImageCard key = {i} image = {image} deleteImage = {handleDeleteImage}/>
-          </Col>))}
-        </Row>
-      </Container>
-      
+      <Search word={word} setWord={setWord} handleSubmit={handleSearchSubmit} />
+      {images.length > 0 ? (
+        <Container>
+          <Row xs={1} md={2} lg={3}>
+            {images.map((image, i) => (
+              <Col key={i} className="pb-3">
+                <ImageCard
+                  key={i}
+                  image={image}
+                  deleteImage={handleDeleteImage}
+                />
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      ) : (
+        <Welcome></Welcome>
+      )}
     </div>
   );
 }
