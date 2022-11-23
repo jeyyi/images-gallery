@@ -4,7 +4,6 @@ import Header from "./components/Header";
 import Search from "./components/Search";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ImageCard from "./components/ImageCard";
-import { Container, Row, Col } from "react-bootstrap";
 
 const UNSPLASH_KEY = process.env.REACT_APP_UNSPLASH_KEY;
 function App() {
@@ -18,7 +17,7 @@ function App() {
     )
       .then((res) => res.json())
       .then((data) => {
-        setImages([data, ...images])
+        setImages([{...data, title: word}, ...images])
         console.log(images);
       })
       .catch((err) => {
@@ -34,7 +33,7 @@ function App() {
         setWord={setWord}
         handleSubmit={handleSearchSubmit}
       ></Search>
-      
+      {images.length && <ImageCard image = {images[0]}/>}
     </div>
   );
 }
